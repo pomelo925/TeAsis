@@ -1,0 +1,43 @@
+#############################
+###    shared settings    ###
+#############################
+x-watchtower-common: &watchtower-common
+  image: containrrr/watchtower:latest
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+  env_file:
+    - config/docker.token.env
+  restart: unless-stopped
+  command: --interval 300 --cleanup
+
+
+##############################
+###   Container Services   ###
+##############################
+services:
+  # Watchtower instance 1 - Primary
+  watchtower-1:
+    <<: [*watchtower-common]
+    container_name: watchtower-1
+    environment:
+      - REPO_USER=${DOCKER_USERNAME_1}
+      - REPO_PASS=${DOCKER_PASSWORD_1}
+    command: --interval 300 --cleanup --include-restarting
+
+  # Watchtower instance 2
+  watchtower-2:
+    <<: [*watchtower-common]
+    container_name: watchtower-2
+    environment:
+      - REPO_USER=${DOCKER_USERNAME_2}
+      - REPO_PASS=${DOCKER_PASSWORD_2}
+    command: --interval 300 --cleanup --include-restarting
+
+  # Watchtower instance 3
+  # watchtower-3:
+  #   <<: [*watchtower-common]
+  #   container_name: watchtower-3
+  #   environment:
+  #     - REPO_USER=${DOCKER_USERNAME_3}
+  #     - REPO_PASS=${DOCKER_PASSWORD_3}
+  #   command: --interval 300 --cleanup --include-restarting

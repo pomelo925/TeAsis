@@ -40,27 +40,25 @@ A Python Discord bot built with discord.py featuring gaming interactions, text-t
 
 1. Clone and configure:
    ```bash
-   git clone https://github.com/pomelo925/discord-bot-tea-girl.git
-   cd discord-bot-tea-girl/docker
-   echo "DISCORD_TOKEN=your_bot_token_here" > .env
+   git clone https://github.com/pomelo925/TeAsis
    ```
 
-2. Run the bot:
+2. Configure these files:  
+     * `docker/config/dcbot.token.env`: Set your Discord bot token
+     * `docker/config/docker.token.env`: Set Docker registry credentials
+
+3. Run the bot:
    ```bash
-   cd .. && ./run.sh
+   ./run.sh dcbot deploy
    ```
 
-<div align="center">
+  ### Available Commands
 
-</br>
-
-## Features
-
-</div>
-
-- **🎮 Games**: `/pong`, `/ping`, `/whoami` - Interactive gaming commands
-- **🎵 Voice**: `/tts <text>` - Text-to-speech with Chinese support  
-- **⚙️ Admin**: `!sync`, `!reload`, `!status` - Bot management commands
+  - `./run.sh` - Show usage help
+  - `./run.sh dcbot dev` - Run bot in development mode (interactive shell)
+  - `./run.sh dcbot deploy` - Run bot in production mode
+  - `./run.sh tower` - Run Watchtower for automatic Docker updates
+  - `./run.sh all` - Run bot (deploy mode) + Watchtower
 
 <div align="center">
 
@@ -72,16 +70,20 @@ A Python Discord bot built with discord.py featuring gaming interactions, text-t
 
 ```
 discord-bot-tea-girl/
-├── run.sh                    # Bot startup script
+├── run.sh                    # Enhanced startup script with multiple modes
 ├── discord-bot/              # Main bot source code
 │   ├── bot.py               # Bot core and event handlers
 │   ├── admin/               # Admin commands (sync, reload, status)
 │   ├── cmds/game/           # Game commands (pong, whoami)
 │   └── cmds/voice/          # Voice commands (tts)
 └── docker/                  # Docker configuration
-    ├── Dockerfile           # Python 3.13 Alpine + FFmpeg
-    ├── compose.yml          # Dev/prod services
-    └── requirements.txt     # discord.py[voice], gTTS
+    ├── dockerfile.dcbot     # Python 3.13 Alpine + FFmpeg
+    ├── compose.dcbot.yml    # Discord bot services (dev/deploy)
+    ├── compose.watchtower.yml # Watchtower auto-update service
+    ├── requirements.txt     # discord.py[voice], gTTS
+    └── config/              # Configuration files
+        ├── dcbot.token.env  # Discord bot token
+        └── docker.token.env # Docker registry credentials
 ```
 
 **Tech Stack**: Python 3.13, discord.py, Docker, FFmpeg, gTTS

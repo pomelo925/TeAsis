@@ -5,28 +5,22 @@ x-common-settings: &common
   build: 
     context: .  
     dockerfile: Dockerfile
-  image: pomelo925/discord-bot:tea-girl
+  image: pomelo925/discord-bot:TeAsis
 
   volumes:
-    # GUI
-    - $HOME/.Xauthority:/root/.Xauthority
-    - /tmp/.X11-unix:/tmp/.X11-unix
-
     # workspace 
     - ../discord-bot:/discord-bot
 
   env_file:
-    - .env
+    - config/dcbot.token.env
 
   environment:
     - DISPLAY=${DISPLAY}
-    - DISCORD_TOKEN=${DISCORD_TOKEN}
 
   tty: true
   network_mode: host
   privileged: true
   stop_grace_period: 1s
-
 
 
 ##############################
@@ -35,10 +29,10 @@ x-common-settings: &common
 services:
   default:
     <<: [*common]  
-    container_name: default
+    container_name: deploy
     command: ["python", "bot.py"]
 
-  devel:
+  dev:
       <<: [*common]
-      container_name: debug
+      container_name: dev
       command: ["tail", "-f", "/dev/null"]
