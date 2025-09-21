@@ -5,39 +5,34 @@ x-watchtower-common: &watchtower-common
   image: containrrr/watchtower:latest
   volumes:
     - /var/run/docker.sock:/var/run/docker.sock
-  env_file:
-    - config/docker.token.env
   restart: unless-stopped
-  command: --interval 300 --cleanup
+  command: --interval 300 --cleanup --include-restarting
 
 
 ##############################
 ###   Container Services   ###
 ##############################
 services:
-  # Watchtower instance 1 - Primary
-  watchtower-1:
+  # Watchtower instance for hrcnthu account
+  watchtower-hrcnthu:
     <<: [*watchtower-common]
-    container_name: watchtower-1
-    environment:
-      - REPO_USER=${DOCKER_USERNAME_1}
-      - REPO_PASS=${DOCKER_PASSWORD_1}
-    command: --interval 300 --cleanup --include-restarting
+    container_name: watchtower-hrcnthu
+    env_file:
+      - config/watchtower.hrcnthu.env
+    command: --interval 300 --cleanup --include-restarting --scope hrcnthu
 
-  # Watchtower instance 2
-  watchtower-2:
+  # Watchtower instance for pomelo925 account
+  watchtower-pomelo925:
     <<: [*watchtower-common]
-    container_name: watchtower-2
-    environment:
-      - REPO_USER=${DOCKER_USERNAME_2}
-      - REPO_PASS=${DOCKER_PASSWORD_2}
-    command: --interval 300 --cleanup --include-restarting
+    container_name: watchtower-pomelo925
+    env_file:
+      - config/watchtower.pomelo925.env
+    command: --interval 300 --cleanup --include-restarting --scope pomelo925
 
-  # Watchtower instance 3
-  # watchtower-3:
+  # Watchtower instance for third account (example)
+  # watchtower-account3:
   #   <<: [*watchtower-common]
-  #   container_name: watchtower-3
-  #   environment:
-  #     - REPO_USER=${DOCKER_USERNAME_3}
-  #     - REPO_PASS=${DOCKER_PASSWORD_3}
-  #   command: --interval 300 --cleanup --include-restarting
+  #   container_name: watchtower-account3
+  #   env_file:
+  #     - config/watchtower.account3.env
+  #   command: --interval 300 --cleanup --include-restarting --scope account3

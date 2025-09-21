@@ -2,19 +2,25 @@
 
 # Usage function
 usage() {
-    echo "Usage: $0 [dcbot|tower|all] [dev|deploy]"
-    echo ""
-    echo "Options:"
-    echo "  dcbot dev     - Run Discord bot in development mode"
-    echo "  dcbot deploy  - Run Discord bot in deployment mode"
-    echo "  tower         - Run Watchtower containers for auto-updates"
-    echo "  all           - Run both Discord bot (deploy) and Watchtower containers"
-    echo ""
-    echo "Examples:"
-    echo "  $0 dcbot dev     # Run Discord bot in dev mode"
-    echo "  $0 dcbot deploy  # Run Discord bot in deploy mode"
-    echo "  $0 tower         # Run only Watchtower"
-    echo "  $0 all           # Run bot (deploy) and Watchtower"
+  run_watchtower() {
+      echo "Starting Watchtower container..."
+      cd docker
+      docker compose -p watchtower -f compose.watchtower.yml up watchtower -d
+      echo "Watchtower started successfully!"
+  }
+  echo "Usage: $0 [dcbot|tower|all] [dev|deploy]"
+      echo ""
+      echo "Options:"
+      echo "  dcbot dev     - Run Discord bot in development mode"
+      echo "  dcbot deploy  - Run Discord bot in deployment mode"
+      echo "  tower         - Run Watchtower containers for auto-updates"
+      echo "  all           - Run both Discord bot (deploy) and Watchtower containers"
+      echo ""
+      echo "Examples:"
+      echo "  $0 dcbot dev     # Run Discord bot in dev mode"
+      echo "  $0 dcbot deploy  # Run Discord bot in deploy mode"
+      echo "  $0 tower         # Run only Watchtower"
+      echo "  $0 all           # Run bot (deploy) and Watchtower"
 }
 
 # Function to run Discord bot in dev mode
@@ -35,10 +41,12 @@ run_dcbot_deploy() {
 
 # Function to run Watchtower
 run_watchtower() {
-    echo "Starting Watchtower containers..."
+    echo "Starting all Watchtower containers..."
     cd docker
-    docker compose -p watchtower -f compose.watchtower.yml up watchtower-1 -d
-    echo "Watchtower started successfully!"
+    docker compose -p watchtower -f compose.watchtower.yml up watchtower-hrcnthu watchtower-pomelo925 -d
+    echo "All Watchtower instances started successfully!"
+    echo "  - watchtower-hrcnthu (using hrcnthu credentials)"
+    echo "  - watchtower-pomelo925 (using pomelo925 credentials)"
 }
 
 # Function to run all services

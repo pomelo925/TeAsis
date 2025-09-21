@@ -30,9 +30,13 @@ services:
   default:
     <<: [*common]  
     container_name: deploy
+    labels:
+      - "com.centurylinklabs.watchtower.scope=pomelo925"
     command: ["python", "bot.py"]
 
   dev:
       <<: [*common]
       container_name: dev
+      labels:
+        - "com.centurylinklabs.watchtower.scope=pomelo925"
       command: ["tail", "-f", "/dev/null"]
