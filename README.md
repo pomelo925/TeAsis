@@ -2,29 +2,8 @@
 
 # TeAsis - Discord Bot  
 
-<3. Run the bot:
-   ```bash
-   ./run.sh dcbot deploy
-   ```
-
-<details>
-<summary>Available Commands</summary>
-
-- `./run.sh` - Show usage help
-- `./run.sh dcbot dev` - Run bot in development mode (interactive shell)
-- `./run.sh dcbot deploy` - Run bot in production mode
-- `./run.sh tower` - Run Watchtower for automatic Docker updates
-- `./run.sh all` - Run bot (deploy mode) + Watchtower
-
-</details>
-
-<div align="center">
-
-</br>
-
-## Features
-
-</div><strong>Multifunctional Discord Bot</strong>
+<p align="center">
+  <strong>Multifunctional Discord Bot</strong>
 </p>
 
 
@@ -73,13 +52,16 @@ A Python Discord bot built with discord.py featuring gaming interactions, text-t
    ./run.sh dcbot deploy
    ```
 
-  ### Available Commands
+    <details>
+    <summary>Available Commands</summary>
 
-  - `./run.sh` - Show usage help
-  - `./run.sh dcbot dev` - Run bot in development mode (interactive shell)
-  - `./run.sh dcbot deploy` - Run bot in production mode
-  - `./run.sh tower` - Run Watchtower for automatic Docker updates
-  - `./run.sh all` - Run bot (deploy mode) + Watchtower
+    - `./run.sh` - Show usage help
+    - `./run.sh dcbot dev` - Run bot in development mode (interactive shell)
+    - `./run.sh dcbot deploy` - Run bot in production mode
+    - `./run.sh tower` - Run Watchtower for automatic Docker updates
+    - `./run.sh all` - Run bot (deploy mode) + Watchtower
+
+    </details>
 
 <div align="center">
 
